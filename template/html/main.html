@@ -1,0 +1,23 @@
+{{ define "main.html" }}
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>主页</title>
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="d-flex">
+    {{template "sidebar" .}}
+    <div style="padding-left: 100px;">
+        <h1 style="text-align: right;padding-bottom: 50px">欢迎您: {{.title}}</h1>
+        {{template "index" .}}
+    </div>
+</div>
+
+<script src="./bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>
+{{end}}
