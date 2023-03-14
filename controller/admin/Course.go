@@ -13,7 +13,7 @@ type CourseInfoForm struct {
 	KID       string `form:"kid"`      // 课程ID
 	CName     string `form:"name"`     // 课程名
 	CAbstract string `form:"abstract"` //课程简介
-	TName     string `form:"teacher"`  //教师名
+	Email     string `form:"email"`    //教师名
 }
 
 func courseMange(c *gin.Context) {
@@ -37,12 +37,25 @@ func EditCourse(c *gin.Context) {
 	} else {
 		// 编辑教师
 		cour := service.FindCourseById(kid)
-		c.HTML(200, "adminEditTeacher.html", gin.H{
+		c.HTML(200, "adminEditCourse.html", gin.H{
 			"name":     cour.CName,
 			"abstract": cour.CAbstract,
 			"teacher":  cour.TName,
 			"kid":      cour.KID,
 		})
+	}
+}
+
+func DeleteCourse(c *gin.Context) {
+	kid := c.Query("kid")
+	fmt.Println("删除课程:", kid)
+	if kid == "" {
+		// 新增课程
+		c.Redirect(301, "/admin/courseMange?msg=缺少关键参数!")
+	} else {
+		// 编辑教师
+		service.DeleteCourseById(kid)
+		c.Redirect(301, "/admin/courseMange?msg=删除课程成功!")
 	}
 }
 
@@ -54,12 +67,13 @@ func PushCourse(c *gin.Context) {
 			errStr := utils.GetVaildMsg(err, &courseForm)
 			c.Redirect(301, "/admin/editCourse?msg="+errStr)
 		} else {
-			kid := utils.Md5Encrypt(courseForm.CName)
+			tid := utils.Md5Encrypt(courseForm.Email)
+			teacher := service.FindTeacherByTid(tid)
 			course := module.CourseInfo{
 				CName:     courseForm.CName,
 				CAbstract: courseForm.CAbstract,
-				KID:       kid,
-				TID:       "",
+				TID:       tid,
+				TName:     teacher.Name,
 			}
 			if service.AddCourse(course) {
 				c.Redirect(301, "/admin/courseMange")
@@ -72,11 +86,14 @@ func PushCourse(c *gin.Context) {
 			errStr := utils.GetVaildMsg(err, &courseForm)
 			c.Redirect(301, "/admin/editTeacher?tid="+courseForm.KID+"&msg="+errStr)
 		} else {
+			tid := utils.Md5Encrypt(courseForm.Email)
+			teacher := service.FindTeacherByTid(tid)
 			course := module.CourseInfo{
 				CName:     courseForm.CName,
 				CAbstract: courseForm.CAbstract,
 				KID:       courseForm.KID,
-				TID:       "",
+				TID:       tid,
+				TName:     teacher.Name,
 			}
 			if service.UpdateCourseById(course.KID, course) {
 				c.Redirect(301, "/admin/courseMange")

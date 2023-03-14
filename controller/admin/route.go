@@ -21,10 +21,13 @@ func LoadRouter(group *gin.RouterGroup) {
 	group.GET("/editTeacher", EditTeacher)
 	group.GET("/deleteTeacher", deleteTeacher)
 	group.GET("/courseMange", courseMange)
+	group.GET("/editCourse", EditCourse)
+	group.GET("/deleteCourse", DeleteCourse)
 	//post请求
 	//group.POST("/addStudent", AddStudent)
 	//group.POST("/register", RegisterStudent)
 	group.POST("/pushTeacher", PushTeacher)
+	group.POST("/pushCourse", PushCourse)
 }
 
 func AuthMiddleware() gin.HandlerFunc {
