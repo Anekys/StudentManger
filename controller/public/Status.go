@@ -28,7 +28,6 @@ func Login(c *gin.Context) {
 	session := sessions.Default(c)
 	switch info.Group {
 	case 1:
-		fmt.Println("学生")
 		stu := service.FindStudentByEmailPassword(info.Username, info.Password)
 		var empty module.Student
 		if stu == empty {
@@ -42,7 +41,6 @@ func Login(c *gin.Context) {
 			c.Redirect(301, "/student/main")
 		}
 	case 2:
-		fmt.Println("教师")
 		tea := service.FindTeacherByEmailPassword(info.Username, info.Password)
 		var empty module.Teacher
 		if tea == empty {
@@ -58,7 +56,6 @@ func Login(c *gin.Context) {
 		//c.Redirect(http.StatusMovedPermanently, "/teacher?uid="+result.UID)
 	case 3:
 		//c.Redirect(http.StatusMovedPermanently, "/student?uid="+result.UID)
-		fmt.Println("管理员")
 		adm := service.FindAdminByEmailPassword(info.Username, info.Password)
 		var empty module.Admin
 		if adm == empty {

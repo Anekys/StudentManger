@@ -54,8 +54,11 @@ func DeleteCourse(c *gin.Context) {
 		c.Redirect(301, "/admin/courseMange?msg=缺少关键参数!")
 	} else {
 		// 编辑教师
-		service.DeleteCourseById(kid)
-		c.Redirect(301, "/admin/courseMange?msg=删除课程成功!")
+		if service.DeleteCourseById(kid) {
+			c.Redirect(301, "/admin/courseMange?msg=删除失败!请重试!")
+		} else {
+			c.Redirect(301, "/admin/courseMange?msg=删除课程成功!")
+		}
 	}
 }
 
