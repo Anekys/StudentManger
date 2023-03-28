@@ -19,7 +19,6 @@ type CourseInfoForm struct {
 func courseMange(c *gin.Context) {
 	session := sessions.Default(c)
 	value := session.Get("aid")
-	fmt.Println(c.Get("adminStruct"))
 	uid := value.(string)
 	admin := service.FindAdminByAid(uid)
 	courses := service.FindAllCourse(1)
@@ -55,9 +54,9 @@ func DeleteCourse(c *gin.Context) {
 	} else {
 		// 编辑教师
 		if service.DeleteCourseById(kid) {
-			c.Redirect(301, "/admin/courseMange?msg=删除失败!请重试!")
-		} else {
 			c.Redirect(301, "/admin/courseMange?msg=删除课程成功!")
+		} else {
+			c.Redirect(301, "/admin/courseMange?msg=删除失败!请重试!")
 		}
 	}
 }
@@ -101,7 +100,7 @@ func PushCourse(c *gin.Context) {
 			if service.UpdateCourseById(course.KID, course) {
 				c.Redirect(301, "/admin/courseMange")
 			} else {
-				c.Redirect(301, "/admin/editCourse?kid="+course.KID+"&msg=msg=添加教师失败!请检查后重试!")
+				c.Redirect(301, "/admin/editCourse?kid="+course.KID+"&msg=添加教师失败!请检查后重试!")
 			}
 		}
 	}

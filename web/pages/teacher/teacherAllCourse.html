@@ -12,7 +12,6 @@
                             <th>课程名</th>
                             <th>课程介绍</th>
                             <th>任课教师</th>
-                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -22,13 +21,6 @@
                             <td>{{$value.CName}}</td>
                             <td>{{$value.CAbstract}}</td>
                             <td>{{$value.TName}}</td>
-                            <td>
-                                <a href="/teacher/editCourse?kid={{$value.KID}}">
-                                    <button type="button" class="btn btn-outline-primary btn-fw">
-                                        编辑
-                                    </button>
-                                </a>
-                            </td>
                         </tr>
                         {{end}}
                         </tbody>

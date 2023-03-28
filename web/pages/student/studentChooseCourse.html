@@ -1,4 +1,4 @@
-{{template "teacherHeader" .}}
+{{template "studentHeader" .}}
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="card">
@@ -23,9 +23,9 @@
                             <td>{{$value.CAbstract}}</td>
                             <td>{{$value.TName}}</td>
                             <td>
-                                <a href="/teacher/editCourse?kid={{$value.KID}}">
+                                <a href="/student/rejectCourse?kid={{$value.KID}}">
                                     <button type="button" class="btn btn-outline-primary btn-fw">
-                                        编辑
+                                        退课
                                     </button>
                                 </a>
                             </td>
@@ -47,4 +47,4 @@
     </footer>
     <!-- partial -->
 </div>
-{{template "teacherFooter" .}}
+{{template "studentFooter" .}}

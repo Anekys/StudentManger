@@ -11,7 +11,7 @@
                             <th>#</th>
                             <th>课程名</th>
                             <th>课程介绍</th>
-                            <th>任课教师</th>
+                            <th>考勤状态</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -21,14 +21,27 @@
                             <td>{{$key}}</td>
                             <td>{{$value.CName}}</td>
                             <td>{{$value.CAbstract}}</td>
-                            <td>{{$value.TName}}</td>
+                            {{if eq $value.Status 1}}
                             <td>
-                                <a href="/teacher/editCourse?kid={{$value.KID}}">
+                                <label class="badge badge-danger">正在考勤</label>
+                            </td>
+                            <td>
+                                <a href="/teacher/endConfirm?kid={{$value.KID}}">
                                     <button type="button" class="btn btn-outline-primary btn-fw">
-                                        编辑
+                                        结束考勤
                                     </button>
                                 </a>
                             </td>
+                            {{else}}
+                            <td><label class="badge badge-success">尚未考勤</label></td>
+                            <td>
+                                <a href="/teacher/startConfirm?kid={{$value.KID}}">
+                                    <button type="button" class="btn btn-outline-primary btn-fw">
+                                        开始考勤
+                                    </button>
+                                </a>
+                            </td>
+                            {{end}}
                         </tr>
                         {{end}}
                         </tbody>

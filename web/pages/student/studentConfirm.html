@@ -1,0 +1,79 @@
+{{template "studentHeader" .}}
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<style>
+    /* Add animation to form */
+    form {
+        animation: slideIn 1s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    /* Define animation */
+    @keyframes slideIn {
+        from {
+            margin-left: -100%;
+            width: 300%;
+        }
+        to {
+            margin-left: 0%;
+            width: 100%;
+        }
+    }
+    .btn-primary {
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+        font-size: 2.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.3s ease-in-out;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+    .btn-primary:hover {
+        transform: scale(1.1);
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    }
+    body {
+        background-color: #f2f2f2;
+    }
+    h1 {
+        color: #4CAF50;
+    }
+</style>
+<div class="main-panel">
+    <div class="container">
+        <h1 class="text-center my-5">考勤系统</h1>
+        <form action="/student/confirm" method="post">
+            {{if eq .status 1}}
+            <button type="submit" class="btn btn-primary">打卡</button>
+            {{else}}
+            <button type="button" class="btn btn-primary">已打卡</button>
+            {{end}}
+            <input type="hidden" name="kid" value="{{.kid}}">
+        </form>
+    </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:partials/_footer.html -->
+    <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block"></span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © zhangyupeng 2023</span>
+        </div>
+    </footer>
+    <!-- partial -->
+</div>
+<!-- Bootstrap JS -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+{{template "studentFooter" .}}

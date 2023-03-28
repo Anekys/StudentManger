@@ -16,6 +16,11 @@ func FindStudentByEmailPassword(email string, password string) module.Student {
 	Sql.Where("email = ? and password = ?", email, password).First(&student)
 	return student
 }
+func FindAllStudents(pageNum int) (students []module.Student) {
+	pageSize := 10
+	Sql.Where("").Order("uid ASC").Offset((pageNum - 1) * pageSize).Limit(pageSize).Find(&students)
+	return
+}
 func FindStudentsByClass(class string) (students []module.Student) {
 	Sql.Model(&module.Student{}).Where("class = ?", class).Find(&students)
 	return

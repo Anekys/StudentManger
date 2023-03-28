@@ -1,0 +1,124 @@
+{{template "teacherHeader" .}}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="display-3">{{.title}}</h2>
+                <div class="table-responsive pt-3">
+                    <input type="hidden" name="kid" value="{{.kid}}">
+                    <input type="hidden" name="course" value="{{.course}}">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>姓名</th>
+                            <th>分数</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{ range $key, $value := .staffList }}
+                        <tr>
+                            <td>{{$key}}</td>
+                            <td>{{$value.Student}}</td>
+                            <td style="width: 30%">
+                                <div class="col-sm-9">
+                                    {{if eq $value.Score -1}}
+                                    <input type="text" class="form-control" name="score" value="暂无成绩"
+                                           oninput="checkValue(this)" maxlength="6" pattern="\d+(\.\d{0,2})?">
+                                    {{else}}
+                                    <input type="text" class="form-control" name="score" value="{{$value.Score}}"
+                                           onkeyup="checkValue(this)">
+                                    {{end}}
+                                </div>
+                            </td>
+                            <input type="hidden" name="uid" value="{{.UID}}">
+                            <input type="hidden" name="student" value="{{.Student}}">
+                            <td>
+                                <button type="submit" class="btn btn-outline-primary btn-fw" onclick="submitData(this)">
+                                    保存成绩
+                                </button>
+                            </td>
+                        </tr>
+                        {{ end }}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:partials/_footer.html -->
+    <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block"></span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © zhangyupeng 2023</span>
+        </div>
+    </footer>
+    <!-- partial -->
+    <script>
+        function checkValue(tag) {
+            // 获取输入框的值
+            var value = tag.value;
+            // 查找小数点的位置
+            var dotIndex = value.indexOf('.');
+            if (dotIndex !== -1 && value.length - dotIndex > 3) {
+                // 如果小数点后面的位数超过3位，则截取前3位
+                tag.value = value.slice(0, dotIndex + 3);
+            }
+            tag.value = tag.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+            if (value == "") {
+                tag.value = "暂无成绩"
+            }
+        }
+
+        function submitData(button) {
+            const row = button.parentNode.parentNode;
+            const kid = $("input[name='kid']").prop('value');
+            const cname = $("input[name='course']").prop('value');
+            const uid = row.querySelector('input[name="uid"]').value;
+            const student = row.querySelector('input[name="student"]').value;
+            const score = row.querySelector('input[name="score"]').value;
+            if (score == "暂无成绩") {
+                showToast(3000, "错误", "请输入正确的成绩再保存!")
+                return
+            }
+            $.ajax({
+                url: '/teacher/saveScore',
+                method: 'POST',
+                data: {
+                    kid: kid,
+                    course: cname,
+                    uid: uid,
+                    student: student,
+                    score: score,
+                },
+                success: function (response) {
+                    showToast(3000, "提示", response['msg'])
+                },
+                error: function (response) {
+                    if (response.hasOwnProperty("msg")) {
+                        showToast(3000, "错误", response['msg'])
+                    }else {
+                        showToast(3000, "错误", response.statusText+"服务器响应错误,请检查网络连接!")
+                    }
+                },
+            });
+        }
+    </script>
+    <!--    &lt;!&ndash;    test&ndash;&gt;-->
+    <!--    <button id="myButton" type="button" class="btn btn-primary">点击弹框</button>-->
+
+    <!--    <script type="text/javascript">-->
+    <!--        $(document).ready(function(){-->
+    <!--            // 给按钮绑定点击事件-->
+    <!--            $("#myButton").click(function(){-->
+    <!--                // 弹出一个警告框-->
+    <!--                console.log("事件正常")-->
+    <!--                showModal("这是一个此时模态框","这是测试模态框的内容")-->
+    <!--            });-->
+    <!--        });-->
+    <!--    </script>-->
+</div>
+{{template "teacherFooter" .}}

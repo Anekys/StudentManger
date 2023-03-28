@@ -10,22 +10,22 @@
                         <tr>
                             <th>#</th>
                             <th>课程名</th>
-                            <th>课程介绍</th>
-                            <th>任课教师</th>
+                            <th>时间</th>
+                            <th>缺勤人数</th>
                             <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {{ range $key,$value:= .courseList }}
+                        {{ range $key,$value:= .confirmList }}
                         <tr>
                             <td>{{$key}}</td>
                             <td>{{$value.CName}}</td>
-                            <td>{{$value.CAbstract}}</td>
-                            <td>{{$value.TName}}</td>
+                            <td>{{$value.Time}}</td>
+                            <td>{{$value.Count}}</td>
                             <td>
-                                <a href="/teacher/editCourse?kid={{$value.KID}}">
+                                <a href="/teacher/viewConfirm?kid={{$value.KID}}&time={{$value.Time}}">
                                     <button type="button" class="btn btn-outline-primary btn-fw">
-                                        编辑
+                                        查看详情
                                     </button>
                                 </a>
                             </td>

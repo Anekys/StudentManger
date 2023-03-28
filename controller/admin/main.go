@@ -15,10 +15,10 @@ func Main(c *gin.Context) {
 	uid := value.(string)
 	admin := service.FindAdminByAid(uid)
 	//classmate := service.FindStudentsByClass(student.Class)
+	studentList := service.FindAllStudents(1)
 	c.HTML(http.StatusOK, "adminMain.html", gin.H{
 		"name": admin.Name,
-		"uid":  "test123",
 		//"class":       student.Class,
-		//"studentList": classmate,
+		"studentList": studentList,
 	})
 }

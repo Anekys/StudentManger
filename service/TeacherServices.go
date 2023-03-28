@@ -34,7 +34,7 @@ func AddTeacher(teacher module.Teacher) bool {
 }
 
 func DeleteTeacher(tid string) bool {
-	if err := Sql.Where("kid = ?", tid).Delete(&module.Teacher{}).Error; err != nil {
+	if err := Sql.Where("tid = ?", tid).Delete(&module.Teacher{}).Error; err != nil {
 		return false
 	}
 	return true

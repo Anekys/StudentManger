@@ -23,11 +23,11 @@
                             <td>{{$value.CAbstract}}</td>
                             <td>{{$value.TName}}</td>
                             <td>
-                                <a href="/teacher/editCourse?kid={{$value.KID}}">
-                                    <button type="button" class="btn btn-outline-primary btn-fw">
-                                        编辑
-                                    </button>
-                                </a>
+                            <a href="/teacher/viewStaff?kid={{$value.KID}}">
+                                <button type="button" class="btn btn-outline-primary btn-fw">
+                                    查看课程人员
+                                </button>
+                            </a>
                             </td>
                         </tr>
                         {{end}}

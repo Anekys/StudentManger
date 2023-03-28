@@ -1,4 +1,4 @@
-{{template "teacherHeader" .}}
+{{template "studentHeader" .}}
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="card">
@@ -12,6 +12,7 @@
                             <th>课程名</th>
                             <th>课程介绍</th>
                             <th>任课教师</th>
+                            <th>考勤状态</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -22,13 +23,25 @@
                             <td>{{$value.CName}}</td>
                             <td>{{$value.CAbstract}}</td>
                             <td>{{$value.TName}}</td>
+                            {{if eq $value.Status 1}}
                             <td>
-                                <a href="/teacher/editCourse?kid={{$value.KID}}">
+                                <label class="badge badge-danger">正在考勤</label>
+                            </td>
+                            <td>
+                                <a href="/student/startConfirm?kid={{$value.KID}}">
                                     <button type="button" class="btn btn-outline-primary btn-fw">
-                                        编辑
+                                        前往考勤
                                     </button>
                                 </a>
                             </td>
+                            {{else}}
+                            <td><label class="badge badge-success">尚未考勤</label></td>
+                            <td>
+                                <button type="button" class="btn btn-outline-primary btn-fw">
+                                    前往考勤
+                                </button>
+                            </td>
+                            {{end}}
                         </tr>
                         {{end}}
                         </tbody>
@@ -47,4 +60,4 @@
     </footer>
     <!-- partial -->
 </div>
-{{template "teacherFooter" .}}
+{{template "studentFooter" .}}

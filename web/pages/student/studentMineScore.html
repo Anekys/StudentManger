@@ -1,4 +1,4 @@
-{{template "teacherHeader" .}}
+{{template "studentHeader" .}}
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="card">
@@ -10,25 +10,17 @@
                         <tr>
                             <th>#</th>
                             <th>课程名</th>
-                            <th>课程介绍</th>
                             <th>任课教师</th>
-                            <th>操作</th>
+                            <th>课程得分</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {{ range $key,$value:= .courseList }}
+                        {{ range $key,$value:= .scoreList }}
                         <tr>
                             <td>{{$key}}</td>
-                            <td>{{$value.CName}}</td>
-                            <td>{{$value.CAbstract}}</td>
-                            <td>{{$value.TName}}</td>
-                            <td>
-                                <a href="/teacher/editCourse?kid={{$value.KID}}">
-                                    <button type="button" class="btn btn-outline-primary btn-fw">
-                                        编辑
-                                    </button>
-                                </a>
-                            </td>
+                            <td>{{$value.Course}}</td>
+                            <td>{{$value.Teacher}}</td>
+                            <td>{{$value.Score}}</td>
                         </tr>
                         {{end}}
                         </tbody>
@@ -47,4 +39,4 @@
     </footer>
     <!-- partial -->
 </div>
-{{template "teacherFooter" .}}
+{{template "studentFooter" .}}

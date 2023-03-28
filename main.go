@@ -5,7 +5,6 @@ import (
 	_ "StudentManger/controller"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 func main() {
@@ -17,15 +16,24 @@ func main() {
 	r.Static("/js", "web/js")
 	fmt.Println("学生管理系统启动")
 	r.LoadHTMLGlob("web/pages/**/*.html")
-	r.GET("/", func(c *gin.Context) {
-		c.Redirect(http.StatusMovedPermanently, "/login")
-	})
 	controller.LoadRouter(r)
 	err := r.Run(":8000")
 	if err != nil {
 		return
 	}
-	//res := utils.SDiff("test1", "test")
-	//utils.SAdd("chaJi", res.Val())
-	//fmt.Println("result:", res.Val())
+	//var staff []module.CourseStaff
+	//staff1 := module.CourseStaff{
+	//	KID:     "1",
+	//	UID:     "1",
+	//	Student: "1",
+	//}
+	//staff2 := module.CourseStaff{
+	//	KID:     "2",
+	//	UID:     "2",
+	//	Student: "2",
+	//}
+	//staff = append(staff, staff1, staff2)
+	//value := utils.Staff2Map(staff)
+	//res := utils.HMSet("testHashMap", value)
+	//fmt.Println("result:", res)
 }

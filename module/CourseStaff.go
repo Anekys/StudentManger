@@ -1,6 +1,8 @@
 package module
 
 type CourseStaff struct {
-	KID string `gorm:"primary_key;column:kid"`
-	UID string `gorm:"column:uid"`
+	ID      int64  `gorm:"primary_key;"`
+	KID     string `gorm:"column:kid"`
+	UID     string `gorm:"column:uid"`
+	Student string `gorm:"column:student"`
 }

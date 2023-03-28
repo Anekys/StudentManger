@@ -18,8 +18,16 @@ func LoadRouter(group *gin.RouterGroup) {
 	group.Static("/js", "web/js")
 	//get请求
 	group.GET("/main", Main)
+	group.GET("/allCourse", FindAllCourse)
+	group.GET("/mineCourse", FindChooseCourse)
+	group.GET("/chooseCourse", ChooseCourse)
+	group.GET("/rejectCourse", RejectCourse)
+	group.GET("/confirmMange", ConfirmMange)
+	group.GET("/startConfirm", StartConfirm)
+	group.GET("/scoreMange", ScoreMange)
 	//post请求
 	group.POST("/addStudent", AddStudent)
+	group.POST("/confirm", Confirm)
 	group.POST("/register", RegisterStudent)
 }
 

@@ -11,9 +11,10 @@ import (
 )
 
 type LogInfo struct {
-	Username string `form:"email" msg:"用户名及密码不正确或不存在!" binding:"required"`
-	Password string `form:"password" msg:"用户名及密码不正确或不存在!" binding:"required"`
-	Group    int    `form:"group" msg:"请选择用户组!" binding:"required"`
+	Username  string `form:"email" msg:"用户名及密码不正确或不存在!" binding:"required"`
+	Password  string `form:"password" msg:"用户名及密码不正确或不存在!" binding:"required"`
+	Group     int    `form:"group" msg:"请选择用户组!" binding:"required"`
+	KeepAlive string `form:"keep-alive"`
 }
 
 func Login(c *gin.Context) {
@@ -26,6 +27,11 @@ func Login(c *gin.Context) {
 		return
 	}
 	session := sessions.Default(c)
+	TTL := 86400 // 默认session保存1天
+	if info.KeepAlive != "" {
+		TTL = 604800 // 勾选保持登录则session过期时间为7天
+	}
+	session.Options(sessions.Options{MaxAge: TTL}) // 设置登录有效期
 	switch info.Group {
 	case 1:
 		stu := service.FindStudentByEmailPassword(info.Username, info.Password)
@@ -96,5 +102,3 @@ func ForwardToRegister(c *gin.Context) {
 		"msg": msg,
 	})
 }
-
-// todo - 考勤打卡功能

@@ -23,6 +23,10 @@ func LoadRouter(router *gin.Engine) {
 	admin.LoadRouter(adm)
 	//router.Use(Middleware())
 	// get请求
+	router.GET("/", func(c *gin.Context) {
+		// 根据session中的结构,转向对应的main,全都不存在则转向登录
+		c.Redirect(http.StatusMovedPermanently, "/login")
+	})
 	router.GET("/login", public.ForwardToLogin)
 	router.GET("/logout", public.Logout)
 	router.GET("/register", public.ForwardToRegister)

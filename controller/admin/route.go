@@ -23,6 +23,7 @@ func LoadRouter(group *gin.RouterGroup) {
 	group.GET("/courseMange", courseMange)
 	group.GET("/editCourse", EditCourse)
 	group.GET("/deleteCourse", DeleteCourse)
+	group.GET("/deleteStudent", deleteStudent)
 	//post请求
 	//group.POST("/addStudent", AddStudent)
 	//group.POST("/register", RegisterStudent)
