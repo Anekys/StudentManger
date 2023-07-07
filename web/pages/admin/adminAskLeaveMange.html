@@ -1,0 +1,81 @@
+{{template "studentHeader" .}}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="display-3">请假管理</h2>
+                <div class="d-flex justify-content-end align-items-end flex-wrap">
+                    <a href="/admin/editCourse">
+                        <button class="btn btn-primary mt-2 mt-xl-0">
+                            提交申请
+                        </button>
+                    </a>
+
+                </div>
+                <div class="table-responsive pt-3">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                请假人
+                            </th>
+                            <th>
+                                请假理由
+                            </th>
+                            <th>
+                                处理状态
+                            </th>
+                            <th>
+                                操作
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{ range $key,$value:= .askList }}
+                        <tr>
+                            <td>{{$key}}</td>
+                            <td>{{$value.Name}}</td>
+                            <td>{{$value.Cause}}</td>
+                            <td>
+                                {{if eq $value.Status 0}}
+                                待处理
+                                {{else if eq $value.Status 1}}
+                                已批准
+                                {{else}}
+                                已拒绝
+                                {{end}}
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-outline-primary btn-fw">
+                                    <a href="/student/viewAskDetail?lid={$value.LID}">
+                                        详情
+                                    </a>
+                                </button>
+                                <button type="button" class="btn btn-outline-danger btn-fw">
+                                    <a href="/student/editAskLeave?lid={{$value.LID}}">
+                                        编辑
+                                    </a>
+                                </button>
+                            </td>
+                        </tr>
+                        {{end}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:partials/_footer.html -->
+    <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block"></span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © zhangyupeng 2023</span>
+        </div>
+    </footer>
+    <!-- partial -->
+</div>
+{{template "studentFooter" .}}

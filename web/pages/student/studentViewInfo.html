@@ -1,0 +1,104 @@
+{{template "adminHeader" .}}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">学生信息</h4>
+                <p class="card-description">
+                    编辑学生
+                </p>
+                <form class="form-sample" action="/admin/pushStudent" method="post">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">姓名</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="sname" placeholder="姓名"
+                                           value="{{.sname}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">班级</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="class" placeholder="班级"
+                                           value="{{.class}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">性别</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="gender">
+                                        {{if eq .gender "0"}}
+                                        <option value="1">男</option>
+                                        <option value="0" selected>女</option>
+                                        {{else}}
+                                        <option value="1" selected>男</option>
+                                        <option value="0">女</option>
+                                        {{end}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">年龄</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="age" placeholder="年龄"
+                                           value="{{.age}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">电子邮箱</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="email" placeholder="电子邮箱"
+                                           value="{{.email}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">密码</label>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control" name="password" placeholder="密码"
+                                           value="{{.password}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">联系方式</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="phone" placeholder="联系方式"
+                                           value="{{.phone}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="uid" value="{{.uid}}">
+                    <button type="submit" class="btn btn-primary mr-2">保存</button>
+                    <button type="reset" class="btn btn-light">取消</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block"></span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © zhangyupeng 2023</span>
+        </div>
+    </footer>
+
+</div>
+{{template "adminFooter" .}}

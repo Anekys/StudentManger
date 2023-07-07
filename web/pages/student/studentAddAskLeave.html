@@ -1,0 +1,55 @@
+{{template "adminHeader" .}}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">课程信息</h4>
+                <p class="card-description">
+                    编辑课程
+                </p>
+                <form class="forms-sample" action="/admin/pushCourse" method="post">
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">课程名</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="exampleInputUsername2" placeholder="课程名称"
+                                   value="{{.CName}}" name="name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="exampleInputEmail2" class="col-sm-3 col-form-label">课程简介</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="课程简介"
+                                   value="{{.CAbstract}}" name="abstract">
+                        </div>
+                    </div>
+                    <input type="hidden" class="form-control" id="exampleInputMobile" name="tid" value="{{.KID}}">
+                    <div class="form-group row">
+                        <label for="exampleInputPassword2" class="col-sm-3 col-form-label">任课教师邮箱</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="exampleInputPassword2" placeholder="任课教师邮箱地址"
+                                   value="{{.email}}" name="email">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="exampleInputPassword2" class="col-sm-3 col-form-label">任课教师姓名</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="exampleInputPassword3" placeholder="任课教师姓名"
+                                   value="" name="teacher_name" readonly="readonly">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">保存</button>
+                    <button type="reset" class="btn btn-light">取消</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block"></span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © zhangyupeng 2023</span>
+        </div>
+    </footer>
+
+</div>
+
+{{template "adminFooter" .}}

@@ -3,11 +3,11 @@
     <div class="content-wrapper">
         <div class="card">
             <div class="card-body">
-                <h2 class="display-3">请假管理</h2>
+                <h2 class="display-3">教师管理</h2>
                 <div class="d-flex justify-content-end align-items-end flex-wrap">
-                    <a href="/admin/editCourse">
+                    <a href="/admin/editTeacher">
                         <button class="btn btn-primary mt-2 mt-xl-0">
-                            提交申请
+                            新增教师
                         </button>
                     </a>
 
@@ -20,13 +20,10 @@
                                 #
                             </th>
                             <th>
-                                请假人
+                                姓名
                             </th>
                             <th>
-                                请假理由
-                            </th>
-                            <th>
-                                处理状态
+                                邮箱
                             </th>
                             <th>
                                 操作
@@ -34,29 +31,20 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {{ range $key,$value:= .askList }}
+                        {{ range $key,$value:= .teacherList }}
                         <tr>
                             <td>{{$key}}</td>
                             <td>{{$value.Name}}</td>
-                            <td>{{$value.Cause}}</td>
-                            <td>
-                                {{if eq $value.Status 0}}
-                                待处理
-                                {{else if eq $value.Status 1}}
-                                已批准
-                                {{else}}
-                                已拒绝
-                                {{end}}
-                            </td>
+                            <td>{{$value.Email}}</td>
                             <td>
                                 <button type="button" class="btn btn-outline-primary btn-fw">
-                                    <a href="/student/viewAskDetail?lid={$value.LID}">
-                                        详情
+                                    <a href="/admin/editTeacher?tid={{$value.TID}}">
+                                        编辑
                                     </a>
                                 </button>
                                 <button type="button" class="btn btn-outline-danger btn-fw">
-                                    <a href="/student/editAskLeave?lid={{$value.LID}}">
-                                        编辑
+                                    <a href="/admin/deleteTeacher?tid={{$value.TID}}">
+                                        删除
                                     </a>
                                 </button>
                             </td>

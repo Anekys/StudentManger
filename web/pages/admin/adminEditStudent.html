@@ -1,0 +1,47 @@
+{{template "adminHeader" .}}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">管理员信息</h4>
+                <p class="card-description">
+                    编辑管理员
+                </p>
+                <form class="forms-sample" action="/admin/pushAdmin" method="post">
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">姓名</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="exampleInputUsername2" placeholder="用户姓名"
+                                   value="{{.name}}" name="name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="exampleInputEmail2" class="col-sm-3 col-form-label">邮箱地址</label>
+                        <div class="col-sm-9">
+                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="用户邮箱"
+                                   value="{{.email}}" name="email">
+                        </div>
+                    </div>
+                    <input type="hidden" class="form-control" id="exampleInputMobile" name="aid" value="{{.aid}}">
+                    <div class="form-group row">
+                        <label for="exampleInputPassword2" class="col-sm-3 col-form-label">密码</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="用户密码"
+                                   value="{{.password}}" name="password">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">保存</button>
+                    <button type="reset" class="btn btn-light">取消</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block"></span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © zhangyupeng 2023</span>
+        </div>
+    </footer>
+
+</div>
+{{template "adminFooter" .}}
