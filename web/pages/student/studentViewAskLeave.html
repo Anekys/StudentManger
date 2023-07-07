@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">请假申请</h4>
-                <form class="forms-sample" action="/student/pushAskLeave" method="post">
+                <form class="forms-sample" >
                     <input type="hidden" name="lid" value="{{.ask.LID}}">
                     <div class="form-group row">
                         <label for="exampleInputUsername2" class="col-sm-3 col-form-label">请假人</label>
@@ -17,12 +17,27 @@
                         <label for="exampleTextarea1">请假原因</label>
                         <textarea class="form-control" id="exampleTextarea1" rows="4" name="case">{{.ask.Cause}}</textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary mr-2">提交</button>
-                    <a href="/student/askLeave">
-                        <button class="btn btn-light">取消</button>
-                    </a>
-
+                    <div class="form-group">
+                        <label for="exampleTextarea1">处理人:</label> &nbsp;
+                        <label>{{.ask.AName}}</label>
+                        <br>
+                        <label for="exampleTextarea1">处理结果:</label>&nbsp;
+                        {{if eq .ask.Status 0}}
+                        <label class="badge badge-warning">待处理</label>
+                        {{else if eq .ask.Status 1}}
+                        <label class="badge badge-success">批准</label>
+                        {{else}}
+                        <label class="badge badge-danger">拒绝</label>
+                        {{end}}
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleTextarea1">处理意见:</label>
+                        <textarea class="form-control" id="exampleTextarea2" rows="4" name="case">{{.ask.Reason}}</textarea>
+                    </div>
                 </form>
+                <a href="/student/askLeave">
+                    <button class="btn btn-light">返回</button>
+                </a>
             </div>
         </div>
     </div>

@@ -11,7 +11,7 @@ import (
 
 type CourseInfoForm struct {
 	KID       string `form:"kid"`      // 课程ID
-	CName     string `form:"name"`     // 课程名
+	CName     string `form:"cname"`    // 课程名
 	CAbstract string `form:"abstract"` //课程简介
 	Email     string `form:"email"`    //教师名
 }
@@ -30,6 +30,10 @@ func courseMange(c *gin.Context) {
 
 func EditCourse(c *gin.Context) {
 	kid := c.Query("kid")
+	session := sessions.Default(c)
+	value := session.Get("aid")
+	uid := value.(string)
+	admin := service.FindAdminByAid(uid)
 	if kid == "" {
 		// 新增课程
 		c.HTML(200, "adminEditCourse.html", gin.H{})
@@ -37,9 +41,10 @@ func EditCourse(c *gin.Context) {
 		// 编辑教师
 		cour := service.FindCourseById(kid)
 		c.HTML(200, "adminEditCourse.html", gin.H{
-			"name":     cour.CName,
+			"name":     admin.Name,
+			"cname":    cour.CName,
 			"abstract": cour.CAbstract,
-			"teacher":  cour.TName,
+			"email":    cour.TEmail,
 			"kid":      cour.KID,
 		})
 	}
@@ -76,6 +81,7 @@ func PushCourse(c *gin.Context) {
 				CAbstract: courseForm.CAbstract,
 				TID:       tid,
 				TName:     teacher.Name,
+				TEmail:    courseForm.Email,
 			}
 			if service.AddCourse(course) {
 				c.Redirect(301, "/admin/courseMange")
@@ -96,9 +102,10 @@ func PushCourse(c *gin.Context) {
 				KID:       courseForm.KID,
 				TID:       tid,
 				TName:     teacher.Name,
+				TEmail:    courseForm.Email,
 			}
 			if service.UpdateCourseById(course.KID, course) {
-				c.Redirect(301, "/admin/courseMange")
+				c.Redirect(301, "/admin/courseMange?msg=教师信息更新成功!")
 			} else {
 				c.Redirect(301, "/admin/editCourse?kid="+course.KID+"&msg=添加教师失败!请检查后重试!")
 			}

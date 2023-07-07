@@ -4,32 +4,33 @@ import (
 	"StudentManger/module"
 	"StudentManger/service"
 	"StudentManger/utils"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
 type Teacher struct {
 	Tid      string `form:"tid"`
-	Name     string `form:"name" msg:"请填写姓名!" binding:"required"`
+	Name     string `form:"tname" msg:"请填写姓名!" binding:"required"`
 	Email    string `form:"email" msg:"请填写邮箱地址!" binding:"required"`
 	PassWord string `form:"password" msg:"请填写密码!" binding:"required"`
 }
 
 func EditTeacher(c *gin.Context) {
 	tid := c.Query("tid")
+	session := sessions.Default(c)
+	value := session.Get("aid")
+	uid := value.(string)
+	admin := service.FindAdminByAid(uid)
 	if tid == "" {
 		// 新增教师
 		c.HTML(200, "adminEditTeacher.html", gin.H{
-			"name":       "",
-			"email":      "",
-			"password":   "",
-			"repassword": "",
-			"tid":        "",
+			"name": admin.Name,
 		})
 	} else {
 		// 编辑教师
 		tea := service.FindTeacherByTid(tid)
 		c.HTML(200, "adminEditTeacher.html", gin.H{
-			"name":     tea.Name,
+			"tname":    tea.Name,
 			"email":    tea.Email,
 			"password": tea.PassWord,
 			"tid":      tea.TID,
@@ -76,5 +77,4 @@ func PushTeacher(c *gin.Context) {
 			}
 		}
 	}
-
 }

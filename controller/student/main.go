@@ -2,7 +2,6 @@ package student
 
 import (
 	"StudentManger/service"
-	"fmt"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -11,7 +10,7 @@ import (
 func Main(c *gin.Context) {
 	session := sessions.Default(c)
 	value := session.Get("uid")
-	fmt.Println(c.Get("studentStruct"))
+	//fmt.Println(c.Get("studentStruct"))
 	uid := value.(string)
 	student := service.FindStudentByUid(uid)
 	classmate := service.FindStudentsByClass(student.Class)
@@ -20,4 +19,24 @@ func Main(c *gin.Context) {
 		"class":       student.Class,
 		"studentList": classmate,
 	})
+}
+
+func viewInfo(c *gin.Context) {
+	session := sessions.Default(c)
+	value := session.Get("uid")
+	//fmt.Println(c.Get("studentStruct"))
+	uid := value.(string)
+	student := service.FindStudentByUid(uid)
+	c.HTML(200, "studentViewInfo.html", gin.H{
+		"name":     student.Name,
+		"sname":    student.Name,
+		"class":    student.Class,
+		"age":      student.Age,
+		"email":    student.Email,
+		"password": student.PassWord,
+		"phone":    student.Phone,
+		"gender":   student.Gender,
+		"uid":      student.UID,
+	})
+
 }

@@ -1,13 +1,13 @@
-{{template "studentHeader" .}}
+{{template "adminHeader" .}}
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">请假申请</h4>
-                <form class="forms-sample" action="/student/pushAskLeave" method="post">
+                <form class="forms-sample" action="/admin/pushAskLeave" method="post">
                     <input type="hidden" name="lid" value="{{.ask.LID}}">
                     <div class="form-group row">
-                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">请假人</label>
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">请假人</label>&nbsp;
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="exampleInputUsername2" placeholder="请假人"
                                    value="{{.ask.Name}}" name="name" readonly>
@@ -15,13 +15,35 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleTextarea1">请假原因</label>
-                        <textarea class="form-control" id="exampleTextarea1" rows="4" name="case">{{.ask.Cause}}</textarea>
+                        <textarea class="form-control" id="exampleTextarea1" rows="4" name="case" readonly>{{.ask.Cause}}</textarea>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">审批结果</label>
+                        <div class="col-sm-4">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="status" id="membershipRadios1"
+                                           value="1" checked="">
+                                    批准
+                                    <i class="input-helper"></i></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="status" id="membershipRadios2"
+                                           value="2">
+                                    拒绝
+                                    <i class="input-helper"></i></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleTextarea2">审批意见</label>
+                        <textarea class="form-control" id="exampleTextarea2" rows="4" name="reason">{{.ask.Reason}}</textarea>
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">提交</button>
-                    <a href="/student/askLeave">
-                        <button class="btn btn-light">取消</button>
-                    </a>
-
+                    <button type="reset" class="btn btn-light">重置</button>
                 </form>
             </div>
         </div>
@@ -35,4 +57,4 @@
 
 </div>
 
-{{template "studentFooter" .}}
+{{template "adminFooter" .}}

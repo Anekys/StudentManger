@@ -36,7 +36,6 @@ func StartConfirm(c *gin.Context) {
 	} else {
 		c.Redirect(302, "/teacher/confirmMange?msg="+msg)
 	}
-
 }
 
 func EndConfirm(c *gin.Context) {

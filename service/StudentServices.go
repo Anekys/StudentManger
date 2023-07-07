@@ -34,14 +34,21 @@ func AddStudent(student module.Student) bool {
 }
 
 func DelStudentByUID(uid string) bool {
-	if err := Sql.Where("uid = ?", uid).Delete(&module.Student{}); err != nil {
+	if err := Sql.Where("uid = ?", uid).Delete(&module.Student{}).Error; err != nil {
 		return false
 	}
 	return true
 }
 
-func UpdateStudentByUid(uid string, column string, value string) bool {
+func UpdateStudentByUidWithKV(uid string, column string, value string) bool {
 	if err := Sql.Model(&module.Student{}).Where("uid = ?", uid).Update(column, value).Error; err != nil {
+		return false
+	}
+	return true
+}
+
+func UpdateStudentByUid(uid string, student module.Student) bool {
+	if err := Sql.Model(&module.Student{}).Where("uid = ?", uid).Updates(student).Error; err != nil {
 		return false
 	}
 	return true

@@ -36,7 +36,6 @@ func LoadRouter(router *gin.Engine) {
 
 func Middleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		//	TODO - 从cookie中拿jwt字符串如果过期了或者没有就重定向到登录页，如果还在线还差5分钟以内过期则续期  ？Redis
 		path := c.Request.URL.Path
 		session := sessions.Default(c)
 		fmt.Println("Request_URL_Path Is", path)

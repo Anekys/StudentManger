@@ -77,7 +77,7 @@ func ChooseCourse(courseStaff module.CourseStaff) bool {
 }
 
 func RejectCourse(courseStaff module.CourseStaff) bool {
-	if err := utils.Sql.Delete(&courseStaff).Error; err != nil {
+	if err := utils.Sql.Where("kid = ?", courseStaff.KID).Where("uid = ?", courseStaff.UID).Delete(&courseStaff).Error; err != nil {
 		return false
 	}
 	return true
@@ -103,6 +103,7 @@ func UpdateCourseById(kid string, course module.CourseInfo) bool {
 	}
 	return true
 }
+
 func UpdateCourseByIdWithField(kid string, field string, value interface{}) bool {
 	err := utils.Sql.Model(&module.CourseInfo{}).Where("kid = ?", kid).Update(field, value).Error
 	if err != nil {

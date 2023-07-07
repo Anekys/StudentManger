@@ -27,11 +27,6 @@ func Md5Encrypt(data string) string {
 	return encryptedData
 }
 
-func DecrypetJwtStr(secret string) string {
-	// TODO - 解码后应为用户的结构体，此处因为没有结构体暂时搁置
-	return secret
-}
-
 func in(target string, strArray []string) bool {
 	sort.Strings(strArray)
 	index := sort.SearchStrings(strArray, target)

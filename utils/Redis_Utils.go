@@ -1,8 +1,10 @@
 package utils
 
 import (
+	"StudentManger/configs"
 	"StudentManger/module"
 	"context"
+	"fmt"
 	"github.com/go-redis/redis/v8"
 	"time"
 )
@@ -15,10 +17,10 @@ var (
 // 初始化连接
 func initClient() (err error) {
 	rdb = redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "",  // no password set
-		DB:       0,   // use default DB
-		PoolSize: 100, // 连接池大小
+		Addr:     fmt.Sprintf("%s:%s", configs.GetStringConfig("redis.host"), configs.GetStringConfig("redis.port")),
+		Password: configs.GetStringConfig("redis.password"), // no password set
+		DB:       configs.GetIntConfig("redis.db"),          // use default DB
+		PoolSize: 100,                                       // 连接池大小
 	})
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)

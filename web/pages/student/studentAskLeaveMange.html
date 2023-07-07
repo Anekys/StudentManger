@@ -41,24 +41,26 @@
                             <td>{{$value.Cause}}</td>
                             <td>
                                 {{if eq $value.Status 0}}
-                                待处理
+                                <label class="badge badge-warning">待处理</label>
                                 {{else if eq $value.Status 1}}
-                                已批准
+                                <label class="badge badge-success">批准</label>
                                 {{else}}
-                                已拒绝
+                                <label class="badge badge-danger">拒绝</label>
                                 {{end}}
                             </td>
                             <td>
-                                <button type="button" class="btn btn-outline-primary btn-fw">
-                                    <a href="/student/viewAskDetail?lid={$value.LID}">
+                                <a href="/student/viewAskDetail?lid={{$value.LID}}">
+                                    <button type="button" class="btn btn-outline-primary btn-fw">
                                         详情
-                                    </a>
-                                </button>
-                                <button type="button" class="btn btn-outline-danger btn-fw">
-                                    <a href="/student/editAskLeave?lid={{$value.LID}}">
+                                    </button>
+                                </a>
+
+                                <a href="/student/editAskLeave?lid={{$value.LID}}">
+                                    <button type="button" class="btn btn-outline-danger btn-fw">
                                         编辑
-                                    </a>
-                                </button>
+
+                                    </button>
+                                </a>
                             </td>
                         </tr>
                         {{end}}

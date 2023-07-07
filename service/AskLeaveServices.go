@@ -3,9 +3,7 @@ package service
 import (
 	"StudentManger/module"
 	"StudentManger/utils"
-	"errors"
 	"fmt"
-	"gorm.io/gorm"
 )
 
 func AddAskLeave(leave module.AskLeave) bool {
@@ -16,13 +14,20 @@ func AddAskLeave(leave module.AskLeave) bool {
 	return true
 }
 
-func FindAskLeaveByUid(uid string) module.AskLeave {
-	var ask module.AskLeave
-	err := utils.Sql.Where("uid = ?", uid).First(&ask)
-	if errors.Is(err.Error, gorm.ErrRecordNotFound) {
-		return module.AskLeave{}
-	}
-	return ask
+func FindAskLeaveByUid(uid string, pageNum int) (asklist []module.AskLeave) {
+	pageSize := 10
+	utils.Sql.Where("uid = ?", uid).Order("status ASC").Offset((pageNum - 1) * pageSize).Limit(pageSize).Find(&asklist)
+	return
+}
+func FindAskLeaveByLid(lid string) (ask module.AskLeave) {
+	utils.Sql.Where("lid = ?", lid).First(&ask)
+	return
+}
+
+func FindAllAskLeave(pageNum int) (asklist []module.AskLeave) {
+	pageSize := 10
+	utils.Sql.Where("").Order("status ASC").Offset((pageNum - 1) * pageSize).Limit(pageSize).Find(&asklist)
+	return
 }
 
 func DeleteAskLeaveByUid(uid string) bool {
@@ -32,8 +37,9 @@ func DeleteAskLeaveByUid(uid string) bool {
 	return true
 }
 
-func UpdateAskLeaveByUid(uid string, column string, value string) bool {
-	if err := utils.Sql.Model(&module.AskLeave{}).Where("uid = ?", uid).Update(column, value).Error; err != nil {
+func UpdateAskLeaveByLid(lid string, ask module.AskLeave) bool {
+	if err := utils.Sql.Model(&module.AskLeave{}).Where("lid = ?", lid).Updates(ask).Error; err != nil {
+		fmt.Println("UpdateAskLeaveByLid error:", err)
 		return false
 	}
 	return true

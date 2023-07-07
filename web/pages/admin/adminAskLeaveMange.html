@@ -1,17 +1,9 @@
-{{template "studentHeader" .}}
+{{template "adminHeader" .}}
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="card">
             <div class="card-body">
                 <h2 class="display-3">请假管理</h2>
-                <div class="d-flex justify-content-end align-items-end flex-wrap">
-                    <a href="/admin/editCourse">
-                        <button class="btn btn-primary mt-2 mt-xl-0">
-                            提交申请
-                        </button>
-                    </a>
-
-                </div>
                 <div class="table-responsive pt-3">
                     <table class="table table-bordered">
                         <thead>
@@ -41,24 +33,19 @@
                             <td>{{$value.Cause}}</td>
                             <td>
                                 {{if eq $value.Status 0}}
-                                待处理
+                                <label class="badge badge-warning">待处理</label>
                                 {{else if eq $value.Status 1}}
-                                已批准
+                                <label class="badge badge-success">批准</label>
                                 {{else}}
-                                已拒绝
+                                <label class="badge badge-danger">拒绝</label>
                                 {{end}}
                             </td>
                             <td>
-                                <button type="button" class="btn btn-outline-primary btn-fw">
-                                    <a href="/student/viewAskDetail?lid={$value.LID}">
-                                        详情
-                                    </a>
-                                </button>
-                                <button type="button" class="btn btn-outline-danger btn-fw">
-                                    <a href="/student/editAskLeave?lid={{$value.LID}}">
-                                        编辑
-                                    </a>
-                                </button>
+                                <a href="/admin/handleAskDetail?lid={{$value.LID}}">
+                                    <button type="button" class="btn btn-outline-primary btn-fw">
+                                        处理
+                                    </button>
+                                </a>
                             </td>
                         </tr>
                         {{end}}
@@ -78,4 +65,4 @@
     </footer>
     <!-- partial -->
 </div>
-{{template "studentFooter" .}}
+{{template "adminFooter" .}}

@@ -3,11 +3,11 @@
     <div class="content-wrapper">
         <div class="card">
             <div class="card-body">
-                <h2 class="display-3">教师管理</h2>
+                <h2 class="display-3">管理员管理</h2>
                 <div class="d-flex justify-content-end align-items-end flex-wrap">
-                    <a href="/admin/editTeacher">
+                    <a href="/admin/editAdmin">
                         <button class="btn btn-primary mt-2 mt-xl-0">
-                            新增教师
+                            新增管理员
                         </button>
                     </a>
 
@@ -31,19 +31,19 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {{ range $key,$value:= .teacherList }}
+                        {{ range $key,$value:= .adminList }}
                         <tr>
                             <td>{{$key}}</td>
                             <td>{{$value.Name}}</td>
                             <td>{{$value.Email}}</td>
                             <td>
                                 <button type="button" class="btn btn-outline-primary btn-fw">
-                                    <a href="/admin/editTeacher?tid={{$value.TID}}">
+                                    <a href="/admin/editAdmin?aid={{$value.AID}}">
                                         编辑
                                     </a>
                                 </button>
                                 <button type="button" class="btn btn-outline-danger btn-fw">
-                                    <a href="/admin/deleteTeacher?tid={{$value.TID}}">
+                                    <a href="/admin/deleteAdmin?aid={{$value.AID}}">
                                         删除
                                     </a>
                                 </button>

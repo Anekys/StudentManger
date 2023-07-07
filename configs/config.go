@@ -1,4 +1,4 @@
-package utils
+package configs
 
 import (
 	"fmt"
@@ -6,11 +6,9 @@ import (
 	"log"
 )
 
-func getStringConfig(key string) string {
-	var v = viper.New()
-	v.SetConfigName("config") // 读取yaml配置文件
-	v.AddConfigPath(".")
-
+func init() {
+	viper.SetConfigName("config") // 读取yaml配置文件
+	viper.AddConfigPath("./configs")
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
 			// Config file not found; ignore error if desired
@@ -21,14 +19,16 @@ func getStringConfig(key string) string {
 		}
 		log.Fatal(err) // 读取配置文件失败致命错误
 	}
-	fmt.Println("获取了", key)
-	return v.GetString(key)
 }
-func getIntConfig(key string) int {
-	var v = viper.New()
-	return v.GetInt(key)
+
+func GetStringConfig(key string) string {
+	//fmt.Println("获取了", key)
+	return viper.GetString(key)
+}
+func GetIntConfig(key string) int {
+	return viper.GetInt(key)
 }
 
 func Test() {
-	fmt.Println("获取配置文件的mysql.username", getStringConfig("mysql.username"))
+	fmt.Println("获取配置文件的mysql.username", GetStringConfig("mysql.username"))
 }

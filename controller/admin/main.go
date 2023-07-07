@@ -2,7 +2,6 @@ package admin
 
 import (
 	"StudentManger/service"
-	"fmt"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -11,14 +10,12 @@ import (
 func Main(c *gin.Context) {
 	session := sessions.Default(c)
 	value := session.Get("aid")
-	fmt.Println(c.Get("adminStruct"))
+	//fmt.Println(c.Get("adminStruct"))
 	uid := value.(string)
 	admin := service.FindAdminByAid(uid)
-	//classmate := service.FindStudentsByClass(student.Class)
 	studentList := service.FindAllStudents(1)
 	c.HTML(http.StatusOK, "adminMain.html", gin.H{
-		"name": admin.Name,
-		//"class":       student.Class,
+		"name":        admin.Name,
 		"studentList": studentList,
 	})
 }

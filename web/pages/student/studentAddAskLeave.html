@@ -1,44 +1,27 @@
-{{template "adminHeader" .}}
+{{template "studentHeader" .}}
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">课程信息</h4>
-                <p class="card-description">
-                    编辑课程
-                </p>
-                <form class="forms-sample" action="/admin/pushCourse" method="post">
+                <h4 class="card-title">请假申请</h4>
+                <form class="forms-sample" action="/student/pushAskLeave" method="post">
+                    <input type="hidden" name="lid" value="{{.ask.LID}}">
                     <div class="form-group row">
-                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">课程名</label>
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">请假人</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="exampleInputUsername2" placeholder="课程名称"
-                                   value="{{.CName}}" name="name">
+                            <input type="text" class="form-control" id="exampleInputUsername2" placeholder="请假人"
+                                   value="{{.ask.Name}}" name="name" readonly>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="exampleInputEmail2" class="col-sm-3 col-form-label">课程简介</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="课程简介"
-                                   value="{{.CAbstract}}" name="abstract">
-                        </div>
+                    <div class="form-group">
+                        <label for="exampleTextarea1">请假原因</label>
+                        <textarea class="form-control" id="exampleTextarea1" rows="4" name="case">{{.ask.Cause}}</textarea>
                     </div>
-                    <input type="hidden" class="form-control" id="exampleInputMobile" name="tid" value="{{.KID}}">
-                    <div class="form-group row">
-                        <label for="exampleInputPassword2" class="col-sm-3 col-form-label">任课教师邮箱</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="exampleInputPassword2" placeholder="任课教师邮箱地址"
-                                   value="{{.email}}" name="email">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="exampleInputPassword2" class="col-sm-3 col-form-label">任课教师姓名</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="exampleInputPassword3" placeholder="任课教师姓名"
-                                   value="" name="teacher_name" readonly="readonly">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary mr-2">保存</button>
-                    <button type="reset" class="btn btn-light">取消</button>
+                    <button type="submit" class="btn btn-primary mr-2">提交</button>
+                    <a href="/student/askLeave">
+                        <button class="btn btn-light">取消</button>
+                    </a>
+
                 </form>
             </div>
         </div>
@@ -52,4 +35,4 @@
 
 </div>
 
-{{template "adminFooter" .}}
+{{template "studentFooter" .}}

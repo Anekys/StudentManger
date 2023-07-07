@@ -19,21 +19,7 @@ func main() {
 	controller.LoadRouter(r)
 	err := r.Run(":8000")
 	if err != nil {
+		fmt.Println(err)
 		return
 	}
-	//var staff []module.CourseStaff
-	//staff1 := module.CourseStaff{
-	//	KID:     "1",
-	//	UID:     "1",
-	//	Student: "1",
-	//}
-	//staff2 := module.CourseStaff{
-	//	KID:     "2",
-	//	UID:     "2",
-	//	Student: "2",
-	//}
-	//staff = append(staff, staff1, staff2)
-	//value := utils.Staff2Map(staff)
-	//res := utils.HMSet("testHashMap", value)
-	//fmt.Println("result:", res)
 }

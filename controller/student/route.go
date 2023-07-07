@@ -25,10 +25,16 @@ func LoadRouter(group *gin.RouterGroup) {
 	group.GET("/confirmMange", ConfirmMange)
 	group.GET("/startConfirm", StartConfirm)
 	group.GET("/scoreMange", ScoreMange)
+	group.GET("/askLeave", AskLeaveList)
+	group.GET("/addAskLeave", pushAskLeavePage)
+	group.GET("/editAskLeave", editAskLeave)
+	group.GET("/viewAskDetail", viewDetail)
+	group.GET("/viewInfo", viewInfo)
 	//post请求
 	group.POST("/addStudent", AddStudent)
 	group.POST("/confirm", Confirm)
 	group.POST("/register", RegisterStudent)
+	group.POST("/pushAskLeave", pushAskLeaveRequest)
 }
 
 func AuthMiddleware() gin.HandlerFunc {

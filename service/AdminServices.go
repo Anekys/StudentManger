@@ -31,14 +31,26 @@ func FindAdminByEmailPassword(email string, password string) module.Admin {
 	return admin
 }
 
+func FindAllAdmins(pageNum int) (admins []module.Admin) {
+	pageSize := 10
+	utils.Sql.Where("").Order("aid ASC").Offset((pageNum - 1) * pageSize).Limit(pageSize).Find(&admins)
+	return
+}
+
 func DeleteAdminByAid(aid string) bool {
 	if err := utils.Sql.Where("aid = ?", aid).Delete(&module.Admin{}).Error; err != nil {
 		return false
 	}
 	return true
 }
+func UpdateAdminByAid(aid string, admin module.Admin) bool {
+	if err := utils.Sql.Model(&module.Admin{}).Where("aid = ?", aid).Updates(admin).Error; err != nil {
+		return false
+	}
+	return true
+}
 
-func UpdateAdminByAid(aid string, column string, value string) bool {
+func UpdateAdminByAidWithKV(aid string, column string, value string) bool {
 	if err := utils.Sql.Model(&module.ConfirmInfo{}).Where("aid = ?", aid).Update(column, value).Error; err != nil {
 		return false
 	}

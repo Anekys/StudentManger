@@ -1,12 +1,10 @@
-{{template "adminHeader" .}}
+{{template "studentHeader" .}}
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">学生信息</h4>
-                <p class="card-description">
-                    编辑学生
-                </p>
+
                 <form class="form-sample" action="/admin/pushStudent" method="post">
                     <div class="row">
                         <div class="col-md-6">
@@ -87,8 +85,6 @@
                         </div>
                     </div>
                     <input type="hidden" name="uid" value="{{.uid}}">
-                    <button type="submit" class="btn btn-primary mr-2">保存</button>
-                    <button type="reset" class="btn btn-light">取消</button>
                 </form>
             </div>
         </div>
@@ -101,4 +97,4 @@
     </footer>
 
 </div>
-{{template "adminFooter" .}}
+{{template "studentFooter" .}}
